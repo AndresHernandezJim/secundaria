@@ -27,30 +27,75 @@
 							<div class="col-md-8">
 								<form>
 									<div class="row">
-										<div class="form-group">
-											<label>Nombre del Alumno</label>
-											<input type="text" name="nombre" id="nombre">
-										</div>	
-
+										<div class="col-md-8">
+											<div class="row">
+												<label>Nombre del Alumno</label>
+											</div>
+											<div class="row">
+												<div class="form-group">
+													<input type="text" name="nombre" id="alumno" class="form-control">
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label>Grado</label>
+												<input type="text" name="grado" id="grado" class="form-control">
+											</div>
+										</div>
 									</div>
+									<div class="row">
+										<div class="col-md-4">
+											<div class="row">
+												<label>Grupo</label>
+											</div>
+											<div class="row">
+												<div class="form-group">
+													<input type="text" name="grupo" id="grupo" class="form-control">
+												</div>
+											</div>
+										</div>
+									</div>
+									<hr>
 									<div class="row">
 										<label>Motivo</label>
 									</div>
 									<div class="row">
-										<div class="form-control">
-											
 											<select class="custom-select">
 												@foreach($motivos as $item)
 												<option value="{{$item->id}}">{{$item->descripcion}}</option>
 												@endforeach
 											</select>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-md-8">
+											<div class="row">
+												<label>Docente</label>
+											</div>
+											<div class="row">
+												<div class="from-group">
+													<input type="text" name="docente" id="docente" class="form-control">
+												</div>
+											</div>
+										</div>
+										&nbsp;
+										<div class="col-md-4>
+											<div class="row">
+												<label>Materia</label>
+											</div>
+											<div class="row">
+												<div class="form-group">
+													<input type="text" name="materia" id="materia" class="form-control">
+												</div>
+											</div>
 										</div>
 									</div>
 									<br>
 									<div class="row">
-										<div class="form-control">
+										
 											<button  type="submit" class="btn btn-danger">Generar reporte al alumno</button>
-										</div>
+									
 									</div>
 								</form>
 							</div>	
@@ -92,14 +137,29 @@
 				  <option value="2">Nombre</option>
 				</select>
       		</div>
+      		
       		<div class="col-md-8">
       			<center>
       				<input type="text" name="buscar" id="buscar" class="form-control">
       			</center>
       		</div>
-      		
+      		<br>
       	</div>
-      
+      	<div class="row" id="datos">
+	      	<div class="col-md-2">
+	      		
+	      	</div>
+	      	<div class="col-md-6">
+	      		<div class="row">
+	      			<label >Seleccione al alumno</label>
+	      		</div>
+	      		<div class="row">
+	      			<select class="custom-select" id="alumno">
+	      				<option></option>
+	      			</select>
+	      		</div>
+	      	</div>
+      	</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
@@ -111,4 +171,12 @@
   <!-- /.modal-dialog -->
 </div>
 
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+	});
+</script>
 @endsection
