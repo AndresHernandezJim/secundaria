@@ -160,6 +160,10 @@ class HomeController extends Controller
        return redirect('/alumnos/consulta')->with('exito2',true);
     }
     public function reporte(){
-        return view('alumno.reporte');
+
+        $data=array(
+        'motivos'=>\DB::table('motivo')->select('id','descripcion')->get(),
+        );
+        return view('alumno.reporte',$data);
     }
 }
