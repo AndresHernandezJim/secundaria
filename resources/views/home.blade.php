@@ -8,6 +8,9 @@
 			<div class="col md-3">
 				<div  id="uno"></div>
 			</div>
+			<div class="col-md-3">
+				<div id="dos"></div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -23,6 +26,7 @@
 
       // Draw the pie chart for Sarah's pizza when Charts is loaded.
       google.charts.setOnLoadCallback(uno);
+      google.charts.setOnLoadCallback(dos);
 
    
       // Callback that draws the pie chart for Sarah's pizza.
@@ -39,15 +43,34 @@
 	        ]);
 
 	        // Set options for Sarah's pie chart.
-	        var options = {title:'Grafica general motivos de reportes',
-	                       width:400,
-	                       height:300};
+	        var options = {title:'Grafica general motivos de reportes en el mes actual',
+	                       width:600,
+	                       height:400};
 
 	        // Instantiate and draw the chart for Sarah's pizza.
 	        var chart = new google.visualization.PieChart(document.getElementById('uno'));
 	        chart.draw(data, options);
 	    }
 
-      
+      function dos(){
+      	// Create the data table for Sarah's pizza.
+	        var data = new google.visualization.DataTable();
+	        data.addColumn('string', 'Topping');
+	        data.addColumn('number', 'Slices');
+	        data.addRows([
+	          @foreach( $dos as $item )
+	          ['{{$item->fecha}}', {{$item->cantidad}}],
+	          @endforeach
+	        ]);
+
+	        // Set options for Sarah's pie chart.
+	        var options = {title:'Cantidad de alumnos con retardo en el mes actual',
+	                       width:600,
+	                       height:400};
+
+	        // Instantiate and draw the chart for Sarah's pizza.
+	        var chart = new google.visualization.PieChart(document.getElementById('dos'));
+	        chart.draw(data, options);
+      }
 </script>
 @endsection

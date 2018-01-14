@@ -32,3 +32,5 @@ Route::get('/alumno/obtener1','HomeController@alumno1');
 Route::get('/alumno/obtener2','HomeController@alumno2');
 Route::get('/alumno/obtener3','HomeController@alumno3');
 Route::post('/reportar/alumno','HomeController@reportaralumno');
+Route::get('/alumno/retardos','HomeController@retardos1');
+Route::post('/retardos/alumno','HomeController@retardos2');

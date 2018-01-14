@@ -7,6 +7,7 @@ use App\alumno;
 use App\padre;
 use App\grado;
 Use App\reporte;
+use App\retardo;
 
 class HomeController extends Controller
 {
@@ -26,12 +27,17 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-        $raw=\DB::raw("count(a_reportes.id_alumno) as cantidad, motivo.descripcion as motivo");
+    {   $raw2=\DB::raw("count(a_reportes.id_alumno) as cantidad,motivo.descripcion as motivo");
+        $raw3=\DB::raw("month(a_reportes.created_at)");
+        $mes=date('m');
+       // dd($mes);
+        $raw=\DB::raw("count(id_usuario) as cantidad,fecha");
+        $raw4=\DB::raw("month(fecha)");
         $data=array(
-            'uno'=>\DB::table('a_reportes')->join('motivo','a_reportes.id_motivo','=','motivo.id')->select($raw)->groupby('motivo')->get(),
+            'dos'=>\DB::table('retardos')->select($raw)->where($raw4,$mes)->groupby('fecha')->get(),
+            'uno'=>\DB::table('a_reportes')->join('motivo','a_reportes.id_motivo','=','motivo.id')->select($raw2)->where($raw3,$mes)->groupby('motivo')->get(),
         );
-        //  dd($data);
+     // dd($data);
         return view('home',$data);
     }
 
@@ -202,5 +208,26 @@ class HomeController extends Controller
 
         return redirect('/alumnos/reporte')->with('exito',true);
         
+    }
+
+    public function retardos1(){
+        $mes=date('m');
+        $raw=\DB::raw("concat(alumno.nombre,' ',alumno.a_paterno,' ',alumno.a_materno) as nombrecompleto,retardos.fecha as fecha,retardos.hora_entrada as hora");
+        $raw2=\DB::raw('month(fecha)');
+        $data=array(
+            'retrasos'=>\DB::table('alumno')->join('retardos','alumno.id','=','retardos.id_usuario')->select($raw)->where($raw2,$mes)->get(),
+        );
+        //dd($data);
+        return view('alumno.retardos',$data);
+    }
+    public function retardos2(Request $request){
+        //dd($request->all());
+        $ret= new retardo;
+        $ret->id_usuario=$request->id_alumno;
+        $ret->fecha=date('Y-m-d');
+        $ret->hora_entrada=$request->hora;
+        $ret->save();
+
+        return redirect('/alumno/retardos')->with('exito',true);
     }
 }

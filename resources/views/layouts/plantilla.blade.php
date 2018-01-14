@@ -109,8 +109,8 @@
           <a href="#"><i class="fa  fa-eraser"></i>&nbsp;<span>Reportes</span></a>
           <ul class="treeview-menu">
             <li><a href="/alumnos/reporte"><i class="fa fa-eye"></i> <span>Alumnos reportados</span></a></li>
-            <li><a href=""><i class="fa fa-clock-o"></i><span>Inasistencias</span></a></li>
-            <li><a href=""><i class="fa fa-bell"></i><span>Retardos</span></a></li>
+            <li><a href="/alumno/"><i class="fa fa-clock-o"></i><span>Inasistencias</span></a></li>
+            <li><a href="/alumno/retardos"><i class="fa fa-bell"></i><span>Retardos</span></a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -118,7 +118,6 @@
           <ul class="treeview-menu">
             <li><a href="/alumnos/registro"><i class="fa fa-user-plus"></i><span>Agregar Alumno</span></a></li>
             <li><a href="/alumnos/consulta"><i class="fa fa-pencil-square"></i><span>Modificar Alumno</span></a></li>
-            <li><a href=""><i class="fa fa-search-plus"></i><span>Más Información</span></a></li>
           </ul>
         </li>
        </ul>

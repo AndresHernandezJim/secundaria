@@ -5,17 +5,17 @@
 	<br>
 	<div class="box box-danger">
 		<div class="box-header with-border">
-			<center><h3>Reportes de alumnos</h3></center>
+			<center><h3>Retardos de alumnos</h3></center>
 		</div>
 		<div class="box-boddy">
 			<div class="row">
 				<div class="col-md-5">
 					<div class="box box-warning">
 						<div class="box-header">
-							<center><h5>Reportar alumno</h5></center>
+							<center><h5>Registrar retrazos de alumno</h5></center>
 						</div>
 						@if(Session::has('exito'))
-					       <p style="color:green;">Reporte almacenado correctamente</p>
+					       <p style="color:green;">Retardo del alumno almacenado correctamente</p>
 					    @endif
 						<div class="box-boddy">
 							<div class="row">
@@ -27,7 +27,7 @@
 							<br>
 							<div class="col-md-1"></div>
 							<div class="col-md-11">
-								<form method="POST" action="/reportar/alumno">
+								<form method="POST" action="/retardos/alumno">
 									{{ csrf_field() }}
 									<input type="hidden" name="id_alumno" id="id_alumno">
 									<div class="row">
@@ -73,43 +73,18 @@
 									</div>
 									<hr>
 									<div class="row">
-										<label>Motivo</label>
-									</div>
-									<div class="row">
-											<select class="custom-select" id="selmotivo" name="motivo">
-												@foreach($motivos as $item)
-												<option value="{{$item->id}}">{{$item->descripcion}}</option>
-												@endforeach
-											</select>
-									</div>
-									<hr>
-									<div class="row">
-										<div class="col-md-12">
-											<div class="row">
-												<div class="col-md-8">
-													<label>Docente</label>
-												</div>
-												<div class="col-md-4">
-													<center><label>Materia</label></center>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-8">
-													<div class="form-group">
-														<input type="text" name="docente" class="form-control">
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="form-group">
-														<input type="text" name="materia" class="form-control">
-													</div>
-												</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Hora de entrada</label>
+												<input type="time" name="hora" required>
 											</div>
 										</div>
 									</div>
+									<hr>
+									
 									<br>
 									<div class="row">
-											<button  type="submit" class="btn btn-danger">Generar reporte al alumno</button>
+											<button  type="submit" class="btn btn-danger">Registrar el retardo del alumno</button>
 									</div>
 								</form>
 							</div>	
@@ -120,24 +95,24 @@
 				<div class="col-md-7">
 					<div class="box box-primary">
 						<div class="box-header">
-							<center><h5>Reportes registrados</h5></center>
+							<center><h5>Retrazos registrados</h5></center>
 						</div>
 						<div class="box-boddy">
-							@if(isset($reportes))
+							@if(isset($retrasos))
 								<div class="row">
 									<div class="col-md-12">
 										<table class="table table-sm table-striped table-responsive">
 											<thead>
 												<th>Alumno</th>
-												<th>Motivo</th>
 												<th>fecha</th>
+												<th>Hora</th>
 											</thead>
 											<tbody>
-												@foreach($reportes as $item)
+												@foreach($retrasos as $item)
 												<tr>
 													<td>{{$item->nombrecompleto}}</td>
-													<td>{{$item->motivo}}</td>
 													<td>{{$item->fecha}}</td>
+													<td>{{$item->hora}}</td>
 												</tr>
 												@endforeach
 											</tbody>
@@ -210,9 +185,7 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
-
 @endsection
-
 @section('scripts')
 <script type="text/javascript">
 	$(document).ready(function(){
