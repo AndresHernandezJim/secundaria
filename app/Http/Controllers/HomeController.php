@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\alumno;
 use App\padre;
 use App\grado;
+Use App\reporte;
 
 class HomeController extends Controller
 {
@@ -25,8 +26,13 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('home');
+    {   
+        $raw=\DB::raw("count(a_reportes.id_alumno) as cantidad, motivo.descripcion as motivo");
+        $data=array(
+            'uno'=>\DB::table('a_reportes')->join('motivo','a_reportes.id_motivo','=','motivo.id')->select($raw)->groupby('motivo')->get(),
+        );
+        //  dd($data);
+        return view('home',$data);
     }
 
     public function registroAlumno(){
@@ -160,10 +166,41 @@ class HomeController extends Controller
        return redirect('/alumnos/consulta')->with('exito2',true);
     }
     public function reporte(){
-
+        $raw=\DB::raw("concat(alumno.nombre,' ',alumno.a_paterno,' ',alumno.a_materno) as nombrecompleto");
+        $raw2=\DB::raw('motivo.descripcion as motivo, date(motivo.created_at) as fecha');
         $data=array(
         'motivos'=>\DB::table('motivo')->select('id','descripcion')->get(),
+        'reportes'=>\DB::table('alumno')->join('a_reportes','alumno.id','=','a_reportes.id_alumno')->join('motivo','a_reportes.id_motivo','=','motivo.id')->select($raw,$raw2)->orderby('fecha','desc')->get(),
         );
+        //dd($data);
         return view('alumno.reporte',$data);
+    }
+    public function alumno1(Request $request){
+        $raw=\DB::raw("concat(nombre,' ',a_paterno,' ',a_materno) as nombrecompleto");
+        $data=\DB::table('alumno')->select('id',$raw,'curp')->where('nombre','like','%'.$request->buscar.'%')->get();
+        return json_encode($data);
+    }
+    public function alumno2(Request $request){
+        $raw=\DB::raw("concat(nombre,' ',a_paterno,' ',a_materno) as nombrecompleto");
+        $data=\DB::table('alumno')->select('id',$raw,'curp')->where('curp','like','%'.$request->buscar.'%')->get();
+        return json_encode($data);
+    }
+
+    public function alumno3(Request $request){
+        $raw=\DB::raw("concat(alumno.nombre,' ',alumno.a_paterno,' ',alumno.a_materno) as nombrecompleto");
+        $data=\DB::table('alumno')->join('gradoalumno','alumno.id','=','gradoalumno.id_alumno')->select('alumno.id',$raw,'alumno.curp','gradoalumno.grado','gradoalumno.grupo')->where('alumno.id','=',$request->buscar)->first();
+        return json_encode($data);
+    }
+    public function reportaralumno(Request $request){
+        //dd($request->all());
+        $repo=new reporte;
+        $repo->id_alumno=$request->id_alumno;
+        $repo->id_motivo=$request->motivo;
+        $repo->docente=$request->docente;
+        $repo->materia=$request->materia;
+        $repo->save();
+
+        return redirect('/alumnos/reporte')->with('exito',true);
+        
     }
 }

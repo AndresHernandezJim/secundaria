@@ -28,3 +28,7 @@ Route::get('/modificar/{id}','HomeController@modif');
 Route::get('/eliminar/{id}','HomeController@eliminar');
 Route::post('/modificar/alumnos','HomeController@modificar');
 Route::get('alumnos/reporte','HomeController@reporte');
+Route::get('/alumno/obtener1','HomeController@alumno1');
+Route::get('/alumno/obtener2','HomeController@alumno2');
+Route::get('/alumno/obtener3','HomeController@alumno3');
+Route::post('/reportar/alumno','HomeController@reportaralumno');
