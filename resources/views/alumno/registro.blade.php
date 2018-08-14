@@ -1,5 +1,11 @@
 @extends('layouts.plantilla')
-
+@section('navegacion')
+<ul class="breadcrumb">
+  <li><a href="/home"><i class="fa fa-dashboard"></i> Inicio</a></li>
+  <li class="active"><i class=" fa fa-pencil"></i> Registro de Alumno</li>
+</ul>
+<br>
+@endsection
 @section('contenido')
 <div class="col-md-12">
 	<div class="col md-2"></div>
